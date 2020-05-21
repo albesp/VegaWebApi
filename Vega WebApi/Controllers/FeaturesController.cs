@@ -14,25 +14,24 @@ namespace Vega_WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MakesController : ControllerBase
+    public class FeaturesController : ControllerBase
     {
+
         private readonly VegaDbContext _context;
         private readonly IMapper _mapper;
 
-        public MakesController(VegaDbContext context, IMapper mapper)
+        public FeaturesController(VegaDbContext context, IMapper mapper)
         {
             this._context = context;
             this._mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<MakeResource>> GetMakes()
+        public async Task<IEnumerable<FeatureResource>> GetFeatures()
         {
-            var makes = await _context.Makes.Include(m => m.Models).ToListAsync();
+            var Features = await _context.Features.ToListAsync();
 
-            return _mapper.Map<List<Make>, List<MakeResource>>(makes);
-        
+            return _mapper.Map<List<Feature>, List<FeatureResource>>(Features);
         }
-            
+
     }
 }
